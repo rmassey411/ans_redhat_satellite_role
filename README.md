@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+The ansible code in this role is used by other playbooks to perform various tasks within RedHat Satellite.  When possible, there will be task files using the RedHat Satellite ansible collection and Hammer commands via ansible.builtin.shell
 
 Requirements
 ------------
