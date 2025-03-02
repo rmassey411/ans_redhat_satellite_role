@@ -1,0 +1,13 @@
+---
+- name: Delete host
+  redhat.satellite.host:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_userpass }}"
+    server_url: "{{ satellite_url }}"
+    name: "{{ host_fqdn }}"
+    state: absent
+  register: delete_output
+
+- name: Message about deleting host
+  ansible.builtin.debug:
+    msg: "{{ delete_output }}"

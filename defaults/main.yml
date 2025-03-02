@@ -1,2 +1,7 @@
 ---
 # defaults file for ans_redhat_satellite_role
+satellite_username: ""
+satellite_userpass: ""
+satellite_url: ""
+
+kickstart_repo: "" # "Red Hat Enterprise Linux 9 for x86_64 - BaseOS Kickstart 9.4"

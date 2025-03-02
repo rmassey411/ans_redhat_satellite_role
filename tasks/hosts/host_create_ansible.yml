@@ -1,0 +1,61 @@
+---
+- name: Create host
+  redhat.satellite.host:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_userpass }}"
+    server_url: "{{ satellite_url }}"
+    name: "{{ host_name }}"
+    hostgroup: "{{ hostgroup_title }}"
+    organization: "{{ organization }}"
+    location: "{{ location_title }}"
+    lifecycle_environment: "{{ lifecycle_environment }}"
+    content_view: "{{ content_view }}"
+    content_source: "{{ content_source }}"
+    architecture: "{{ architecture }}"
+    operatingsystem: "{{ operatingsystem }}"
+    compute_resource: "{{ compute_resource }}"
+    kickstart_repository: "{{ kickstart_repo }}"
+    build: true
+    compute_attributes:
+      start: "1"
+      cpus: "{{ cpus }}"
+      corespersocket: 1
+      memory_mb: "{{ memory_mb }}"
+      firmware: "automatic"
+      cluster: "{{ cluster }}"
+      resource_pool: "{{ resource_pool }}"
+      path: "{{ folder }}"
+      cpuHotAddEnabled: 0
+      memoryHotAddEnabled: 0
+      add_cdrom: 0
+      annotation: ""
+      boot_order: "{{ boot_order }}"
+      scsi_controllers: 
+        - type: "ParaVirtualSCSIController"
+          key: 1000
+      volumes:
+        - name: "Hard Disk"
+          size_gb: "{{ os_disk }}"
+          datastore: "{{ datastore }}"
+          mode: "persistent"
+          eager_zero: false
+          thin: true
+          controller_key: 1000
+    interfaces_attributes:
+      - type: "interface"
+        managed: true
+        primary: true
+        provision: true
+        virtual: false
+        compute_attributes:
+          network: "{{ compute_network }}"
+          type: "VirtualVmxnet3"
+    subnet: "{{ subnet }}"
+    ip: "{{ host_ip }}"
+    provision_method: "bootdisk"
+    pxe_loader: "PXELinux BIOS"
+    root_pass: "{{ root_password }}"
+    managed: 1
+    state: present
+  register: output
+  delegate_to: localhost

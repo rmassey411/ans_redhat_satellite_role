@@ -1,0 +1,25 @@
+---
+- name: build the vm via hammer
+  ansible.builtin.shell:
+    cmd: |
+      hammer host create --name "{{ host_name }" \
+        --hostgroup-title "{{ hostgroup_title }}" \
+        --location-title "{{ location_title }}" \
+        --organization "{{ organization }}" \
+        --domain "{{ domain }}" \
+        --compute-resource "{{ compute_resource }}" \
+        --content-view "{{ content_view }}" \
+        --content-source "{{ content_source }}" \
+        --lifecycle-environment "{{ lifecycle_environment }}" \
+        --compute-attributes '{"cluster":"{{ cluster }}","start":"1","cpus":"{{ cpus }}","corespersocket":1,"memory_mb":{{ memory_mb }},"scsi_controllers":[{"type":"ParaVirtualSCSIController","key":1000}],"firmware":"automatic","resource_pool":"{{ resource_pool }}","cpuHotAddEnabled":"0","memoryHotAddEnabled":"0","add_cdrom":"0","annotation":"","path":"{{ path }}"}' \
+        --volume="name=Hard Disk,datastore={{ datastore }},mode=persistent,size_gb={{ os_disk }},thin=true,eager_zero=false,controller_key=1000" \
+        --interface="type=interface,managed=true,primary=true,provision=true,virtual=false,compute_type=VirtualVmxnet3,compute_network={{ compute_network }}" \
+        --provision-method "bootdisk" \
+        --root-password "{{ root_password }}" \
+        --pxe-loader "PXELinux BIOS" \
+        --operatingsystem "{{ operatingsystem }}" \
+        --architecture "x86_64" \
+        --managed "1" \
+        --kickstart-repository-id "{{ kickstart_repo }}" \
+        --ip "{{ host_ip }}" \
+        --subnet "{{ host_subnet }}"
